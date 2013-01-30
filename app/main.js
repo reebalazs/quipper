@@ -6,7 +6,7 @@ App.Quip = Ember.Object.extend({
     user: ""
 });
 
-App.quipsController = Ember.ArrayController.create({
+App.QuipsController = Ember.ArrayController.create({
     content: [],
     add: function (quip) {
         var length = this.get('length');
@@ -15,21 +15,29 @@ App.quipsController = Ember.ArrayController.create({
     load: function () {
         var content = [
             App.Quip.create({
-                text: "redefine reinvent envisioneer podcasts architect bricks-and-clicks content",
+                text: "Hi! Redefine, or reinvent envisioneer podcasts, or architect bricks-and-clicks content?",
                 user: "ree"
             }),
             App.Quip.create({
-                text: "functionalities utilize front-end synergize disintermediate integrate AJAX-enabled ROI seamles",
+                text: "Sure. Functionalities utilize front-end synergize, with disintermediate, and integrate AJAX-enabled ROI seamlessly.",
                 user: "baaz"
             })
         ];
         this.set('content', content);
+    },
+    createQuip: function () {
+        var text = this.get('newQuip');
+        console.log('lotetu', text);
     }
 });
 
-App.quipsController.load();
+App.QuipsController.load();
 
 App.Router.map(function () {
+    console.log("routes are being defined");
+    this.resource('quips', { path: '/' });
+    console.log("routes have been defined");
 });
+
 
 
