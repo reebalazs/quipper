@@ -1,43 +1,48 @@
 
 window.App = Ember.Application.create();
 
-App.Quip = Ember.Object.extend({
+App.Quips = Ember.Object.extend({
     text: "",
     user: ""
 });
 
-App.QuipsController = Ember.ArrayController.create({
+App.quipsController = Ember.ArrayController.create({
     content: [],
-    add: function (quip) {
-        var length = this.get('length');
-        this.insertAt(length, quip);
+    addQuip: function (quip) {
+        this.insertAt(0, quip);
     },
     load: function () {
         var content = [
-            App.Quip.create({
+            App.Quips.create({
                 text: "Hi! Redefine, or reinvent envisioneer podcasts, or architect bricks-and-clicks content?",
                 user: "ree"
             }),
-            App.Quip.create({
+            App.Quips.create({
                 text: "Sure. Functionalities utilize front-end synergize, with disintermediate, and integrate AJAX-enabled ROI seamlessly.",
                 user: "baaz"
             })
         ];
         this.set('content', content);
     },
-    createQuip: function () {
-        var text = this.get('newQuip');
-        console.log('lotetu', text);
+    createQuip: function (text) {
+        var user = 'ree';
+        this.addQuip(App.Quips.create({
+            text: text,
+            user: user
+        }));
     }
 });
 
-App.QuipsController.load();
+App.quipsController.load();
 
-App.Router.map(function () {
-    console.log("routes are being defined");
-    this.resource('quips', { path: '/' });
-    console.log("routes have been defined");
+App.TextField = Em.TextField.extend(Ember.TargetActionSupport, {
+    insertNewline: function() {
+        this.triggerAction();
+    }
 });
 
-
-
+App.latestQuipsView = Em.View.extend({
+    createQuip: function() {
+        this.get('controller').createQuip(this.get('textField.value'));
+    }
+});

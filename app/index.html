@@ -6,14 +6,15 @@
     <script src="../app/main.js"></script>
     <script type="text/x-handlebars">
         <h2>Latest Quips</h2>
+        {{#view App.latestQuipsView controllerBinding=App.quipsController}}
         <div>
-            ree: 
-            {{#view Ember.TextField id="new-quip" placeholder="Enter your Quip"
-                action="createQuip" valueBinding="newQuip"}}
-            {{/view}}
+            ree:
+            {{view App.TextField id="new-quip" placeholder="Enter your Quip"
+                action="createQuip" target="parentView" viewName="textField"}}
         </div>
+        {{/view}}
         <br>
-        {{#each App.QuipsController.content}}
+        {{#each App.quipsController.content}}
         <div>
             {{user}}: {{text}}
         </div>
