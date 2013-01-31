@@ -46,3 +46,14 @@ App.latestQuipsView = Em.View.extend({
         this.get('controller').createQuip(this.get('textField.value'));
     }
 });
+
+App.quipView = Em.View.extend({
+    didInsertElement: function() {
+        var self = this;
+        this.$()
+            .css('height', 0)
+            .animate({
+                height: 19
+            }, 250);
+    } 
+});

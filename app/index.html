@@ -14,10 +14,12 @@
         </div>
         {{/view}}
         <br>
-        {{#each App.quipsController.content}}
+        {{#each quip in App.quipsController.content}}
+        {{#view App.quipView controllerBinding=App.quipsController}}
         <div>
-            {{user}}: {{text}}
+            {{quip.user}}: {{quip.text}}
         </div>
+        {{/view}}
         {{/each}}
     </script>
 </head>
