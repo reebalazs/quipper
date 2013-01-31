@@ -44,6 +44,8 @@ App.TextField = Em.TextField.extend(Ember.TargetActionSupport, {
 App.latestQuipsView = Em.View.extend({
     createQuip: function() {
         this.get('controller').createQuip(this.get('textField.value'));
+        // clear the value
+        this.set('textField.value', null); // Y U NOT WORKING?
     }
 });
 
