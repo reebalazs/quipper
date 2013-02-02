@@ -1,5 +1,5 @@
 
 # Quipper #
 
-XXX
+Go to the [app](http://warpedvisions.org)
 
