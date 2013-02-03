@@ -1,7 +1,7 @@
 
 window.App = Ember.Application.create();
 
-App.Quips = Ember.Object.extend({
+App.Quip = Ember.Object.extend({
     text: "",
     user: ""
 });
@@ -13,11 +13,11 @@ App.quipsController = Ember.ArrayController.create({
     },
     load: function () {
         var content = [
-            App.Quips.create({
+            App.Quip.create({
                 text: "Hi! Redefine, or reinvent envisioneer podcasts, or architect bricks-and-clicks content?",
                 user: "ree"
             }),
-            App.Quips.create({
+            App.Quip.create({
                 text: "Sure. Functionalities utilize front-end synergize, with disintermediate, and integrate AJAX-enabled ROI seamlessly.",
                 user: "baaz"
             })
@@ -26,7 +26,7 @@ App.quipsController = Ember.ArrayController.create({
     },
     createQuip: function (text) {
         var user = 'ree';
-        this.addQuip(App.Quips.create({
+        this.addQuip(App.Quip.create({
             text: text,
             user: user
         }));
@@ -57,5 +57,5 @@ App.quipView = Em.View.extend({
             .animate({
                 height: 19
             }, 250);
-    } 
+    }
 });
