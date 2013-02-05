@@ -6,61 +6,37 @@ App.Quip = DS.Model.extend({
 });
 
 App.Store = DS.Store.extend({
-    revision: 11
+    revision: 11,
+    adapter: 'App.QuipsAdapter'
 });
+
+// http://stackoverflow.com/questions/12386913/ember-data-fixture-adapter
+App.Quip.FIXTURES = [
+    { id: 1, user: 'ree', text: 'Which is the best JS MVC?' },
+    { id: 2, user: 'baaz', text: '@ree Definitely Ember.js!' }
+];
+
+App.QuipsAdapter = DS.FixtureAdapter.extend({});
 
 App.ApplicationView = Ember.View.extend({
     templateName: 'application'
 });
 
-App.ApplicationController = Ember.Controller.extend({
-});
-
-App.Router.map(function() {
-    this.route('quips', { path: '/quips' });
-});
-
 App.IndexRoute = Ember.Route.extend({
-  setupController: function(controller) {
-    controller.load();
-  }
-});
-
-App.QuipsRoute = Ember.Route.extend({
     model: function() {
         return App.Quip.find();
     }
 });
 
 App.IndexController = Ember.ArrayController.extend({
-  content: [],
-  addQuip: function (quip) {
-    this.insertAt(0, quip);
-  },
-  load: function () {
-    var content = [
-      App.Quip.createRecord({
-        text: "Hi! Redefine, or reinvent envisioneer podcasts, or architect bricks-and-clicks content?",
-        user: "ree"
-      }),
-      App.Quip.createRecord({
-        text: "Sure. Functionalities utilize front-end synergize, with disintermediate, and integrate AJAX-enabled ROI seamlessly.",
-        user: "baaz"
-      })
-    ];
-    this.set('content', content);
-  },
   createQuip: function() {
-    var user = 'ree';
-      console.log('In createQuip');
     App.Quip.createRecord({
       text: this.get('newQuip'),
-      user: user
+      user: 'ree'
     });
     //FIXME: this does not clear the input field
     this.set('newQuip', '');
     this.get('store').commit();
-      console.log('createQuip ends here');
   }
 });
 
