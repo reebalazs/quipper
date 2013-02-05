@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Quipper :: Quip Feed</title>
-    <script src="../lib/jquery-1.9.0.js"></script>
+    <script src="../lib/jquery-1.8.3.min.js"></script>
     <script src="../lib/handlebars-1.0.rc.2.js"></script>
     <script src="../lib/ember.js"></script>
     <script src="../lib/ember-data.js"></script>
@@ -19,7 +19,6 @@
                 valueBinding="newQuip" action="createQuip"}}
         </div>
         <br>
-        <!-- TODO: do this like in the todoMVC -->
         {{#each quip in controller}}
         {{#view App.quipView}}
         <div>

@@ -34,7 +34,6 @@ App.IndexController = Ember.ArrayController.extend({
       text: this.get('newQuip'),
       user: 'ree'
     });
-    //FIXME: this does not clear the input field
     this.set('newQuip', '');
     this.get('store').commit();
   }
