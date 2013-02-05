@@ -53,12 +53,6 @@ App.Quip = Ember.Object.extend({
   user: ""
 });
 
-App.TextField = Ember.TextField.extend(Ember.TargetActionSupport, {
-  insertNewline: function() {
-    this.triggerAction();
-  }
-});
-
 App.quipView = Em.View.extend({
     didInsertElement: function() {
         var self = this;
