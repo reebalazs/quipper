@@ -1,16 +1,35 @@
-
 window.App = Ember.Application.create();
+
+App.Quip = DS.Model.extend({
+  text: DS.attr('string'),
+  user: DS.attr('string')
+});
+
+App.Store = DS.Store.extend({
+    revision: 11
+});
 
 App.ApplicationView = Ember.View.extend({
     templateName: 'application'
 });
+
 App.ApplicationController = Ember.Controller.extend({
+});
+
+App.Router.map(function() {
+    this.route('quips', { path: '/quips' });
 });
 
 App.IndexRoute = Ember.Route.extend({
   setupController: function(controller) {
     controller.load();
   }
+});
+
+App.QuipsRoute = Ember.Route.extend({
+    model: function() {
+        return App.Quip.find();
+    }
 });
 
 App.IndexController = Ember.ArrayController.extend({
@@ -20,38 +39,34 @@ App.IndexController = Ember.ArrayController.extend({
   },
   load: function () {
     var content = [
-      App.Quip.create({
+      App.Quip.createRecord({
         text: "Hi! Redefine, or reinvent envisioneer podcasts, or architect bricks-and-clicks content?",
         user: "ree"
       }),
-      App.Quip.create({
+      App.Quip.createRecord({
         text: "Sure. Functionalities utilize front-end synergize, with disintermediate, and integrate AJAX-enabled ROI seamlessly.",
         user: "baaz"
       })
     ];
     this.set('content', content);
   },
-  createQuip: function (text) {
+  createQuip: function() {
     var user = 'ree';
-    var t2 = text;
-    ///text = this.get('newQuip');
-    console.log(text, t2);
-    this.addQuip(App.Quip.create({
-      text: text,
+      console.log('In createQuip');
+    App.Quip.createRecord({
+      text: this.get('newQuip'),
       user: user
-    }));
-    // clear the value
-    this.set('newQuip', ''); // FIXME
+    });
+    //FIXME: this does not clear the input field
+    this.set('newQuip', '');
+    this.get('store').commit();
+      console.log('createQuip ends here');
   }
 });
 
 App.IndexView = Ember.View.extend({
 });
 
-App.Quip = Ember.Object.extend({
-  text: "",
-  user: ""
-});
 
 App.quipView = Em.View.extend({
     didInsertElement: function() {
