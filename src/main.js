@@ -34,7 +34,7 @@ App.IndexController = Ember.ArrayController.extend({
   createQuip: function (text) {
     var user = 'ree';
     var t2 = text;
-    text = this.get('newQuip');
+    ///text = this.get('newQuip');
     console.log(text, t2);
     this.addQuip(App.Quip.create({
       text: text,
