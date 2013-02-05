@@ -4,24 +4,28 @@
     <script src="../lib/handlebars.js"></script>
     <script src="../lib/ember-1.0.0-pre.4.js"></script>
     <script src="./main.js"></script>
-    <script type="text/x-handlebars">
+
+    <script type="text/x-handlebars" data-template-name="application">
+        {{outlet}}
+    </script> 
+
+    <script type="text/x-handlebars" data-template-name="index">
         <h2>Latest Quips</h2>
-        {{#view App.latestQuipsView controllerBinding=App.quipsController}}
         <div>
             ree:
-            {{view App.TextField id="new-quip" placeholder="Enter your Quip"
-                action="createQuip" target="parentView" viewName="textField"}}
+                {{view App.TextField id="new-quip" placeholder="Enter your Quip"
+                action="createQuip" target="parentView" viewName="newQuip"}}
         </div>
-        {{/view}}
         <br>
-        {{#each quip in App.quipsController.content}}
-        {{#view App.quipView controllerBinding=App.quipsController}}
+        {{#each quip in controller}}
+        {{#view App.quipView}}
         <div>
             {{quip.user}}: {{quip.text}}
         </div>
         {{/view}}
         {{/each}}
     </script>
+    
 </head>
 <body>
 </body>
