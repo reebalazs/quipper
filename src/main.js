@@ -33,19 +33,19 @@ App.IndexController = Ember.ArrayController.extend({
   },
   createQuip: function (text) {
     var user = 'ree';
+    var t2 = text;
+    text = this.get('newQuip');
+    console.log(text, t2);
     this.addQuip(App.Quip.create({
       text: text,
       user: user
     }));
+    // clear the value
+    this.set('newQuip', ''); // FIXME
   }
 });
 
 App.IndexView = Ember.View.extend({
-  createQuip: function() {
-    this.controller.createQuip(this.get('newQuip.value'));
-    // clear the value
-    this.set('newQuip.value', null); // Y U NOT WORKING?
-  }
 });
 
 App.Quip = Ember.Object.extend({
