@@ -1,57 +1,48 @@
-
 window.App = Ember.Application.create();
+
+App.Quip = DS.Model.extend({
+  text: DS.attr('string'),
+  user: DS.attr('string')
+});
+
+App.Store = DS.Store.extend({
+    revision: 11,
+    adapter: 'App.QuipsAdapter'
+});
+
+// http://stackoverflow.com/questions/12386913/ember-data-fixture-adapter
+App.Quip.FIXTURES = [
+    { id: 1, user: 'ree', text: 'Which is the best JS MVC?' },
+    { id: 2, user: 'baaz', text: '@ree Definitely Ember.js!' }
+];
+
+App.QuipsAdapter = DS.FixtureAdapter.extend({});
 
 App.ApplicationView = Ember.View.extend({
     templateName: 'application'
 });
-App.ApplicationController = Ember.Controller.extend({
-});
 
 App.IndexRoute = Ember.Route.extend({
-  setupController: function(controller) {
-    controller.load();
-  }
+    model: function() {
+        return App.Quip.find();
+    }
 });
 
 App.IndexController = Ember.ArrayController.extend({
-  content: [],
-  addQuip: function (quip) {
-    this.insertAt(0, quip);
-  },
-  load: function () {
-    var content = [
-      App.Quip.create({
-        text: "Hi! Redefine, or reinvent envisioneer podcasts, or architect bricks-and-clicks content?",
-        user: "ree"
-      }),
-      App.Quip.create({
-        text: "Sure. Functionalities utilize front-end synergize, with disintermediate, and integrate AJAX-enabled ROI seamlessly.",
-        user: "baaz"
-      })
-    ];
-    this.set('content', content);
-  },
-  createQuip: function (text) {
-    var user = 'ree';
-    var t2 = text;
-    ///text = this.get('newQuip');
-    console.log(text, t2);
-    this.addQuip(App.Quip.create({
-      text: text,
-      user: user
-    }));
-    // clear the value
-    this.set('newQuip', ''); // FIXME
+  createQuip: function() {
+    App.Quip.createRecord({
+      text: this.get('newQuip'),
+      user: 'ree'
+    });
+    //FIXME: this does not clear the input field
+    this.set('newQuip', '');
+    this.get('store').commit();
   }
 });
 
 App.IndexView = Ember.View.extend({
 });
 
-App.Quip = Ember.Object.extend({
-  text: "",
-  user: ""
-});
 
 App.quipView = Em.View.extend({
     didInsertElement: function() {
